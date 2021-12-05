@@ -183,26 +183,26 @@ and ncol=nch-ncl+1. The routine should be called with the address
 	return m;
 }
 
-float ***f3tensor(long nrl, long nrh, long ncl, long nch, long ndl, long ndh)
+double ***f3tensor(long nrl, long nrh, long ncl, long nch, long ndl, long ndh)
 /* allocate a float 3tensor with range t[nrl..nrh][ncl..nch][ndl..ndh] */
 {
 	long i,j,nrow=nrh-nrl+1,ncol=nch-ncl+1,ndep=ndh-ndl+1;
-	float ***t;
+	double ***t;
 
 	/* allocate pointers to pointers to rows */
-	t=(float ***) malloc((size_t)((nrow+NR_END)*sizeof(float**)));
+	t=(double ***) malloc((size_t)((nrow+NR_END)*sizeof(double**)));
 	if (!t) nrerror("allocation failure 1 in f3tensor()");
 	t += NR_END;
 	t -= nrl;
 
 	/* allocate pointers to rows and set pointers to them */
-	t[nrl]=(float **) malloc((size_t)((nrow*ncol+NR_END)*sizeof(float*)));
+	t[nrl]=(double **) malloc((size_t)((nrow*ncol+NR_END)*sizeof(double*)));
 	if (!t[nrl]) nrerror("allocation failure 2 in f3tensor()");
 	t[nrl] += NR_END;
 	t[nrl] -= ncl;
 
 	/* allocate rows and set pointers to them */
-	t[nrl][ncl]=(float *) malloc((size_t)((nrow*ncol*ndep+NR_END)*sizeof(float)));
+	t[nrl][ncl]=(double *) malloc((size_t)((nrow*ncol*ndep+NR_END)*sizeof(double)));
 	if (!t[nrl][ncl]) nrerror("allocation failure 3 in f3tensor()");
 	t[nrl][ncl] += NR_END;
 	t[nrl][ncl] -= ndl;
@@ -281,9 +281,9 @@ void free_convert_matrix(float **b, long nrl, long nrh, long ncl, long nch)
 	free((FREE_ARG) (b+nrl-NR_END));
 }
 
-void free_f3tensor(float ***t, long nrl, long nrh, long ncl, long nch,
+void free_f3tensor(double ***t, long nrl, long nrh, long ncl, long nch,
 	long ndl, long ndh)
-/* free a float f3tensor allocated by f3tensor() */
+/* free a double f3tensor allocated by f3tensor() */
 {
 	free((FREE_ARG) (t[nrl][ncl]+ndl-NR_END));
 	free((FREE_ARG) (t[nrl]+ncl-NR_END));
@@ -485,7 +485,7 @@ and ncol=nch-ncl+1. The routine should be called with the address
 	return m;
 }
 
-float ***f3tensor(nrl,nrh,ncl,nch,ndl,ndh)
+double ***f3tensor(nrl,nrh,ncl,nch,ndl,ndh)
 long nch,ncl,ndh,ndl,nrh,nrl;
 /* allocate a float 3tensor with range t[nrl..nrh][ncl..nch][ndl..ndh] */
 {
@@ -605,9 +605,9 @@ long nch,ncl,nrh,nrl;
 }
 
 void free_f3tensor(t,nrl,nrh,ncl,nch,ndl,ndh)
-float ***t;
+double ***t;
 long nch,ncl,ndh,ndl,nrh,nrl;
-/* free a float f3tensor allocated by f3tensor() */
+/* free a double f3tensor allocated by f3tensor() */
 {
 	free((FREE_ARG) (t[nrl][ncl]+ndl-NR_END));
 	free((FREE_ARG) (t[nrl]+ncl-NR_END));

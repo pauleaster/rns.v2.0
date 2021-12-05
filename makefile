@@ -46,7 +46,8 @@ SIZE=-DMDIV=65 -DSDIV=129
 
 
 # DEBUGGING OPTION
-#MY_OWN =-g3
+# MY_OWN =-g3 # debug symbols 
+# MY_OWN = -o3 # full optimisation 
 
 #/*************************************************************************
 #*                    SOURCE AND OBJECT MACROS
